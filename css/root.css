@@ -1,12 +1,14 @@
 :root {
-   --color-primary: #F3F0FF;
-  --color-secondary: #D6CCFF;
-  --color-accent: #817ab7;
-  --color-white: #FFFFFF;
-  --color-text: #1A1A1A;
-  --color-gray:#e0e0e09c;
+  --color-primary:   #F1E9FA;  
+  --color-secondary: #CFA6EE;  
+  --color-accent:    #8A52C9;  
+  --color-white:     #FFFFFF;
+  --color-text:      #1A1A1A;
+  --color-gray:      #E3E3E3;
   --max-width: 1200px;
 }
+
+
 * {
   box-sizing: border-box;
   text-decoration: none;
@@ -14,9 +16,10 @@
 
 html, body {
   margin: 0;
-  padding: 0;
+  overflow-x: hidden;
   overflow-x: hidden;
 }
 body{
   font-family:  sans-serif;
+  padding-top: 82px;
 }

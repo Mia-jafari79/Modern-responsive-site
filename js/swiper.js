@@ -17,7 +17,7 @@
 // });
 
 var swiper1 = new Swiper(".swiper1", {
-  slidesPerView: 5,
+  slidesPerView: 6,
   spaceBetween: 30,
   loop: true,
   loopedSlides: 20,
@@ -34,7 +34,7 @@ var swiper1 = new Swiper(".swiper1", {
 });
 
 var swiper2 = new Swiper(".swiper2", {
-  slidesPerView: 5,
+  slidesPerView: 6,
   spaceBetween: 30,
   loop: true,
   loopedSlides: 20,

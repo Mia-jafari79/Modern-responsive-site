@@ -1,8 +1,15 @@
 .site-header {
-  margin: 20px;
+  position: fixed !important;
+  top: 0;
+  left: 0;
   width: 100%;
+
   background-color: var(--color-white);
+  z-index: 9999;
+
+  margin: 0;
 }
+
 
 .header-container {
   max-width: var(--max-width);
@@ -11,17 +18,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .header-left,
 .header-right {
   display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.header-right {
-  justify-content: flex-end;
+  gap: 10px;
 }
 
 .header-right img {
@@ -36,13 +39,20 @@
   list-style: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 24px;
   margin: 0;
   padding: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .nav-items {
   position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-items a,
@@ -73,13 +83,17 @@
 
 /* ============= DROPDOWN ================================ */
 .dropdown-box {
+  top: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%) ;
+  min-width: 500px;
+  inset-inline: 0;  
+  margin-inline: auto;
+  width: 100%;
   position: absolute;
-  top: 120%;
-  left: 0;
   display: flex;
   background-color: var(--color-primary);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-  min-width: 400px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -91,7 +105,7 @@
   opacity: 1;
   visibility: visible;
   transition: all 0.25s ease;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);;
 }
 .dropdown-left {
   list-style: none;
@@ -173,8 +187,20 @@
   display: flex;
 }
 /* ====================SEARCH BOX============ */
-.search-box {
+.search-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.search-wrapper{
+  width: 160px;
+  height: 36px;
   position: relative;
+}
+.search-box {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -206,12 +232,37 @@
 
 .search-box.active {
   width: 160px;
-  border-radius: 18px;
+   border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+
 }
 
 .search-box.active input {
   width: 100%;
+  transition: all 0.2s ease;
 }
+
+/* =====================DARK MODE BTN===================== */
+.darkmood {
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-secondary); 
+  /* border-top-right-radius: 0;
+  border-bottom-right-radius: 0; */
+
+}
+.darkmood:hover{
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+
 
 /* ====================== BTN==================================== */
 .btn {
@@ -226,6 +277,7 @@
 
 .btn:hover {
   background-color: var(--color-secondary);
+  color: white;
 }
 
 .auth-buttons {
@@ -248,7 +300,5 @@
   background-color: var(--color-secondary);
 }
 
-/* =====================DARK MODE BTN===================== */
-.darkmood {
-  border-radius: 70%;
-}
+
+
