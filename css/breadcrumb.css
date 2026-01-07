@@ -1,0 +1,43 @@
+.breadcrumb-wrapper {
+  max-width: 1200px;
+  margin: 16px auto;
+  padding: 0 24px;
+}
+
+.breadcrumb {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #777;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb li::after {
+  content: "›";
+  margin: 0 6px;
+  color: #aaa;
+}
+
+.breadcrumb li:last-child::after {
+  content: "";
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: #555;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .current {
+  color: var(--color-accent);
+  cursor: default;
+}

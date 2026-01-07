@@ -10,7 +10,6 @@
   margin: 0;
 }
 
-
 .header-container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -32,7 +31,6 @@
   width: 50px;
   height: auto;
 }
-
 
 /* ================= NAV=============== */
 .nav-links {
