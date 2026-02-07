@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/breadcrumb.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/root.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    
+</head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+.page-content {
+    padding-top: 120px; 
+}
+
+.table-search{
+    max-width: none;
+    flex: 1;
+    min-width: 420px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transform: translateY(10px)
+}
+.table-search:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(161, 102, 230, 0.15);
+}
+
+.table-search i {
+    font-size: 18px;
+    color: var(--color-text);
+}
+.table-search input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+    background: transparent;
+}
+
+.table-search input::placeholder {
+    color: #aaa;
+}
+
+.table-filters {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.table-filters select {
+    width: 180px;
+    flex-shrink: 0; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+
+.table-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    overflow-x: auto;  
+    margin: 0 auto;  
+    padding: 30px;
+}
+
+#bagTable {
+    min-width: 1500px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+}
+
+caption {
+    caption-side: top;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid var(--color-gray);
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.pagination button:hover {
+    background-color: #f2f2f2;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+</style>
+
+<body>
+    <!--------------- header ----------------------->
+    <header  id="1"  class="site-header">
+        <div class="header-container">
+            <!-- left -->
+            <div class="header-left">
+
+            <div class="auth-buttons">
+                <button class="btn btn-auth">SIGN UP</button>
+                <button class="btn btn-auth">LOG IN</button>
+            </div>
+            <button class="darkmood">
+                <i class="ri-moon-line"></i>
+            </button>
+
+            <div class="search-group">
+                <div class="search-wrapper">
+                <div class="search-box" id="search-box">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search" />
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Center -->
+            <nav>
+            <ul class="nav-links">
+                <li class="nav-items"><a href="#">Home</a></li>
+                <li class="nav-items"><a href="#">About us</a></li>
+                <li class="nav-items">
+                <span>Services <i class="ri-arrow-down-s-line"></i></span>
+            <div class="dropdown-box">
+                <ul class="dropdown-left">
+                    <li class="dropdown-item " data-target="mega1">
+                    <a   href="#">Services 1</a>
+                    </li>
+                    <li class="dropdown-item" data-target="mega2">
+                    <a  href="#">Services 2</a>
+                    </li>
+                    <li class="dropdown-item" data-target="mega3">
+                    <a   href="#">Services 3</a>
+                    </li>
+                </ul>
+                <div class="mega-right">
+                    <div class="mega-content" id="mega1">
+                    <div class="mega-headers">
+                        <header>header1 <i class="ri-arrow-right-s-line"></i></header>
+                    </div>
+                    
+                    <ul class="mega-item">
+                        <li><a class="line" href="http://127.0.0.1:5500/list.html" target="_blank">To do list</a></li>
+                        <li><a class="line" href="http://127.0.0.1:5500/tabel.html">table</a></li>
+                        <li><a class="line" href="">abc</a></li>
+                        <li><a class="line" href="">abc</a></li> 
+                    </ul>   
+                        <div class="mega-headers">
+                        <header>header1 <i class="ri-arrow-right-s-line"></i></header>
+                    </div>
+                    
+                    <ul class="mega-item">
+                        <li><a class="line" href="">abc</a></li>
+                        <li><a class="line" href="">abc</a></li>
+                        <li><a class="line" href="">abc</a></li>
+                        <li><a class="line" href="">abc</a></li> 
+                    </ul>   
+                        
+                    
+                    </div>
+                    
+                    
+                    <div class="mega-content" id="mega2">
+                    <header>header2<i class="ri-arrow-right-s-line"></i></header>
+                    <ul class="mega-item">
+                        <li><a  class="line" href="">hgf</a></li>
+                        <li><a class="line" href="">hgf</a></li>
+                        <li><a class="line" href="">hfh</a></li>
+                    </ul>
+                    </div>
+
+                    <div class="mega-content" id="mega3">
+                    <header>header3<i class="ri-arrow-right-s-line"></i></header>
+                    <ul class="mega-item">
+                        <li><a class="line" href="">abi</a></li>
+                        <li><a class="line" href="">abi</a></li>
+                        <li><a class="line" href="">abi</a></li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+            </li>
+            <li class="nav-items"><a href="#">Forms</a></li>  
+            </nav>
+
+            <!-- Right -->
+            <div class="header-right">
+            
+
+            <div class="header-logo">
+                <img
+                src="./assets/images/purple-flame-logo-2-th.png"
+                alt="logo"
+                />
+            </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+    <nav class="breadcrumb-wrapper" aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li class="current">Table</li>
+    </ul>
+    </nav>
+
+    <!--------------- table ----------------------->
+    <div class="table-filters">
+
+    <!-- Search -->
+    <div class="table-search">
+    <i class="ri-search-line"></i>
+    <input type="text" id="tableSearch" placeholder="Search..." />
+    </div>
+
+    <!-- Category -->
+    <select id="categoryFilter">
+    <option value="">All Categories</option>
+    <option value="Women">Women</option>
+    <option value="Men">Men</option>
+    <option value="Unisex">Unisex</option>
+    </select>
+
+    <!-- Price -->
+    <select id="priceFilter">
+    <option value="">All Prices</option>
+    <option value="80">$80</option>
+    <option value="95">$95</option>
+    <option value="120">$120</option>
+    </select>
+
+    </div>
+
+
+    <div class="table-wrapper">
+        <table id="bagTable">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Code</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock Quantity</th>
+                <th>Remaining Quantity</th>
+                <th>Usage Type</th>
+                <th>Supplier</th>
+                <th>Last Restock Date</th>
+                <th>Notes</th>
+            </tr>
+            <!-- ردیف‌ها توسط JS اضافه می‌شوند -->
+        </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+    </main>
+    <!---- footer -->
+    <footer id="5" class="site-footer">
+        <!--overlay-top -->
+        <section  id="5" class="footer-overlay footer-overlay-top">
+        <!-- Map -->  
+        <div class="footer-location">
+        <a
+            href="https://www.google.com/maps?q=Valiasr+Tehran"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link"
+        >
+            <iframe
+            src="https://www.google.com/maps?q=Valiasr%20Tehran&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </a>
+        </div>
+
+        <!-- Company -->
+        <div class="footer__col">
+        <h4>Company</h4>
+            <ul class="footer__links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Careers</a></li>
+            </ul>
+        </div>
+            <div class="footer__col">
+        <h4>Company</h4>
+            <ul class="footer__links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Careers</a></li>
+            </ul>
+        </div>
+        <!-- Legal -->
+        <div class="footer__col">
+            <h4>Legal</h4>
+            <ul class="footer__links">
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+    <!-- Logo -->
+        <div class="footer-logo">
+        <img src="./assets/images/purple-flame-logo-2-th.png" alt="">
+        </div>
+        </section>
+
+        <!--center-box -->
+        <section class="footer-center-box"></section>
+
+        <!-- overlay-bottom -->
+        <section class="footer-overlay footer-overlay-bottom">
+        <p>© All rights reserved</p>
+        </section>
+    </footer>
+
+    <script>
+    const table = document.getElementById('bagTable');
+    const pagination = document.getElementById('pagination');
+    const rowsPerPage = 10;
+    let currentPage = 1;
+    const totalRows = 50;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    // Sample data arrays
+    const categories = ["Women", "Men", "Unisex"];
+    const prices = ["$80", "$95", "$120"];
+    const stockQty = [50, 70, 40];
+    const remainingQty = [30, 45, 25];
+    const usageTypes = ["Daily", "Casual", "Office"];
+    const suppliers = ["BagSupplier Co.", "UrbanBags Ltd."];
+    const lastRestock = ["2026-01-03", "2026-01-05", "2026-01-06"];
+    const notesArr = ["New colors arriving", "Limited edition", "-"];
+
+    // Generate 50 rows
+    for (let i = 1; i <= totalRows; i++) {
+    const tr = document.createElement('tr');
+    tr.classList.add('page-row');
+    tr.dataset.page = Math.ceil(i / rowsPerPage); // assign page number
+
+    tr.innerHTML = `
+        <td>Bag ${i}</td>
+        <td>BAG${i.toString().padStart(3, '0')}</td>
+        <td>${categories[i % categories.length]}</td>
+        <td>${prices[i % prices.length]}</td>
+        <td>${stockQty[i % stockQty.length]}</td>
+        <td>${remainingQty[i % remainingQty.length]}</td>
+        <td>${usageTypes[i % usageTypes.length]}</td>
+        <td>${suppliers[i % suppliers.length]}</td>
+        <td>${lastRestock[i % lastRestock.length]}</td>
+        <td>${notesArr[i % notesArr.length]}</td>
+    `;
+
+    table.appendChild(tr);
+    }
+
+    // Function to display current page
+    function showPage(page) {
+    const rows = document.querySelectorAll('.page-row');
+    rows.forEach(row => {
+        row.style.display = (parseInt(row.dataset.page) === page) ? '' : 'none';
+    });
+
+    // Update active button
+    const buttons = pagination.querySelectorAll('button.page-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    const activeBtn = pagination.querySelector(`button[data-page="${page}"]`);
+    if(activeBtn) activeBtn.classList.add('active');
+
+    // Enable/disable prev-next buttons
+    document.getElementById('prevBtn').disabled = (page === 1);
+    document.getElementById('nextBtn').disabled = (page === totalPages);
+    }
+
+    // Create pagination buttons
+    function createPagination() {
+    // Prev button
+    const prevBtn = document.createElement('button');
+    prevBtn.id = 'prevBtn';
+    prevBtn.innerText = '← Prev';
+    prevBtn.onclick = () => { currentPage--; showPage(currentPage); };
+    pagination.appendChild(prevBtn);
+
+    // Page numbers
+    for(let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.classList.add('page-btn');
+        btn.dataset.page = i;
+        btn.onclick = () => { currentPage = i; showPage(currentPage); };
+        pagination.appendChild(btn);
+    }
+
+    // Next button
+    const nextBtn = document.createElement('button');
+    nextBtn.id = 'nextBtn';
+    nextBtn.innerText = 'Next →';
+    nextBtn.onclick = () => { currentPage++; showPage(currentPage); };
+    pagination.appendChild(nextBtn);
+    }
+
+    // Initialize
+    createPagination();
+    showPage(currentPage);
+    const searchInput = document.getElementById('tableSearch');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+
+function applyFilters() {
+    const searchValue = searchInput.value.toLowerCase();
+    const categoryValue = categoryFilter.value;
+    const priceValue = priceFilter.value;
+
+    const rows = document.querySelectorAll('.page-row');
+
+    rows.forEach(row => {
+    const rowText = row.innerText.toLowerCase();
+
+    const categoryText = row.children[2].innerText; // Category column
+    const priceText = row.children[3].innerText.replace('$', '');
+
+    const matchSearch = rowText.includes(searchValue);
+    const matchCategory = !categoryValue || categoryText === categoryValue;
+    const matchPrice = !priceValue || priceText === priceValue;
+
+    row.style.display =
+    matchSearch && matchCategory && matchPrice ? '' : 'none';
+    });
+
+  // pagination UX
+    const hasFilter =
+    searchValue || categoryValue || priceValue;
+    pagination.style.display = hasFilter ? 'none' : 'flex';
+
+    if (!hasFilter) {
+    showPage(currentPage);
+    }
+}
+    searchInput.addEventListener('input', applyFilters);
+    categoryFilter.addEventListener('change', applyFilters);
+    priceFilter.addEventListener('change', applyFilters);  
+    </script>
+
+    <script src="js/header.js"></script>
+
+</body>
+</html>

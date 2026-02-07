@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/breadcrumb.css">
-    <link rel="stylesheet" href="./css/todolist.css">
-    <link rel="stylesheet" href="./css/root.css">
+    <link rel="stylesheet" href="/css/breadcrumb.css">
+    <link rel="stylesheet" href="/css/todolist.css">
+    <link rel="stylesheet" href="/css/root.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/header.css">
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -16,7 +18,158 @@
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    
+    <style>
+      body {
+      font-family: sans-serif;
+      padding-top: 82px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      }
+
+      h1 {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 3rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--color-accent);
+      }
+
+      .wrapper {
+      width: 700px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100vh;
+      }
+      #todo-input {
+      box-sizing: border-box;
+      padding: 12px 20px;
+      width: 100%;
+      background: none;
+      border: 2px solid var(--color-accent);
+      outline: none;
+      border-radius: 1000px;
+      color: var(--color-accent);
+      caret-color: var(--color-accent);
+      }
+      form {
+      position: relative;
+      }
+      #add-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      height: 100%;
+      padding: 0 30px;
+      border: none;
+      border-radius: 1000px;
+      font-weight: 500;
+      cursor: pointer;
+      }
+      .todo {
+      margin-bottom: 10px;
+      padding: 0 16px;
+      background-color: var(--color-secondary);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      }
+      .todo .todo-text {
+      padding: 15px;
+      padding-right: 0;
+      flex-grow: 1;
+      transition: 200ms ease ;
+      }
+      .delete-button {
+      padding: 3px;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      }
+      .ri-delete-bin-6-line {
+      color: var(--color-white);
+      font-weight: 400;
+      transition: all 200ms ease;
+      }
+      .delete-button .ri-delete-bin-6-line:hover {
+      color: red;
+      }
+      .custom-checkbox {
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+      min-height: 20px;
+      min-width: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      transition: 200ms ease;
+      cursor: pointer;
+      }
+      .ri-check-line {
+      color: transparent;
+      font-size: 14px;
+      }
+      input[type="checkbox"] {
+      display: none;
+      }
+
+      input[type="checkbox"]:checked + .custom-checkbox {
+      background-color: var(--color-accent);
+      }
+
+      input[type="checkbox"]:checked + .custom-checkbox .ri-check-line {
+      color: var(--color-white);
+      }
+
+      input[type="checkbox"]:checked ~ .todo-text {
+      text-decoration: line-through;
+      color: black;
+      }
+      .todo input[type="checkbox"]:checked ~ .delete-button {
+      opacity: 0.4;
+      }
+
+      #todo-list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      }
+
+      .todo {
+      width: 100%;
+      box-sizing: border-box;
+      }
+
+      .todo.dragging {
+      opacity: 0.4;
+      }
+      #export-pdf{
+      margin: 10px auto 0;
+      padding: 16px 16px;
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      width: 30%;
+
+      }
+    </style>
 </head>
 <body>
     <!--------------- header ----------------------->
@@ -46,7 +199,7 @@
         <!-- Center -->
         <nav>
           <ul class="nav-links">
-            <li class="nav-items"><a href="#">Home</a></li>
+            <li class="nav-items"><a href="http://127.0.0.1:5500/index.html">Home</a></li>
             <li class="nav-items"><a href="#">About us</a></li>
             <li class="nav-items">
             <span>Services <i class="ri-arrow-down-s-line"></i></span>
@@ -134,7 +287,8 @@
   </ul>
     </nav>
 
-    <h1>Todo List</h1>
+    <!---- todo -->
+    <h1>To-do List</h1>
     <div class="wrapper">
 
       <form>
@@ -160,22 +314,18 @@
           </label>
 
           <span class="todo-text">
-            Learn HTML & CSS
+            shopping 
           </span>
 
           <button class="delete-button">
             <i class="ri-delete-bin-6-line"></i>
           </button>
-
         </li>
 
       </ul>
+      <button id="export-pdf" >Export to PDF</button>
 
     </div>
-
-
-
-
 
     <!---- footer -->
     <footer id="5" class="site-footer">
@@ -239,8 +389,187 @@
       </section>
     </footer>
 
-
     <script src="js/header.js"></script>
-    <script src="js/todolist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+      const form = document.querySelector("form");
+      const todoInput = document.querySelector("#todo-input");
+      const todoList = document.querySelector("#todo-list");
+
+      let draggedItem = null;
+
+      // ---------- Load todos ----------
+      let todos = JSON.parse(localStorage.getItem("todos")) || [];
+      todos.forEach((todo) => createTodoItem(todo.text, todo.completed));
+
+      // ---------- Add todo ----------
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const text = todoInput.value.trim();
+        if (!text) return;
+
+        const todo = { text, completed: false };
+        todos.push(todo);
+        createTodoItem(todo.text, todo.completed);
+
+        saveTodos();
+        todoInput.value = "";
+      });
+
+      // ---------- Create todo ----------
+      function createTodoItem(text, completed) {
+        const li = document.createElement("li");
+        li.className = "todo";
+        li.draggable = true;
+
+        // Checkbox
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = `todo-${Date.now()}`;
+        checkbox.checked = completed;
+
+        // Custom checkbox
+        const label = document.createElement("label");
+        label.className = "custom-checkbox";
+        label.setAttribute("for", checkbox.id);
+
+        const checkIcon = document.createElement("i");
+        checkIcon.className = "ri-check-line";
+        label.appendChild(checkIcon);
+
+        // Text
+        const span = document.createElement("span");
+        span.className = "todo-text";
+        span.textContent = text;
+
+        // Delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-button";
+
+        const deleteIcon = document.createElement("i");
+        deleteIcon.className = "ri-delete-bin-6-line";
+        deleteBtn.appendChild(deleteIcon);
+
+        // ---------- Events ----------
+        checkbox.addEventListener("change", () => {
+          const todo = todos.find((t) => t.text === text);
+          if (todo) todo.completed = checkbox.checked;
+          saveTodos();
+        });
+
+        deleteBtn.addEventListener("click", () => {
+          li.remove();
+          todos = todos.filter((t) => t.text !== text);
+          saveTodos();
+        });
+
+        // Append
+        li.append(checkbox, label, span, deleteBtn);
+        todoList.appendChild(li);
+
+        enableDragAndDrop(li);
+      }
+
+      // ---------- Drag & Drop ----------
+      function enableDragAndDrop(item) {
+        item.addEventListener("dragstart", () => {
+          draggedItem = item;
+          item.classList.add("dragging");
+        });
+
+        item.addEventListener("dragend", () => {
+          draggedItem = null;
+          item.classList.remove("dragging");
+          saveOrder();
+        });
+
+        item.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          if (!draggedItem || draggedItem === item) return;
+
+          const rect = item.getBoundingClientRect();
+          const middle = rect.top + rect.height / 2;
+          // وسط این آیتم دقیقاً کجاست 
+          if (e.clientY > middle) {
+            item.after(draggedItem);
+          } else {
+            item.before(draggedItem);
+          }
+        });
+      }
+
+      // ---------- Save ----------
+      function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
+      }
+
+      // ---------- Save order ----------
+      function saveOrder() {
+        const newTodos = [];
+        document.querySelectorAll(".todo").forEach((li) => {
+          newTodos.push({
+            text: li.querySelector(".todo-text").textContent,
+            completed: li.querySelector("input").checked,
+          });
+        });
+        todos = newTodos;
+        saveTodos();
+      }
+
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const exportBtn = document.getElementById("export-pdf");
+
+        exportBtn.addEventListener("click", async () => {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF("p", "pt", "a4"); // Portrait, points, A4
+
+          // 1. ایجاد نسخه موقت clone از wrapper
+          const wrapper = document.querySelector(".wrapper");
+          const clone = wrapper.cloneNode(true);
+
+          // 2. حذف فرم و دکمه Export از نسخه clone
+          const form = clone.querySelector("form");
+          const exportBtnClone = clone.querySelector("#export-pdf");
+          if (form) form.remove();
+          if (exportBtnClone) exportBtnClone.remove();
+
+          // 3. حذف همه دکمه‌های delete (سطل زباله)
+          const deleteButtons = clone.querySelectorAll(".delete-button");
+          deleteButtons.forEach((btn) => btn.remove());
+
+          // 4. اضافه کردن clone به body بصورت مخفی برای html2canvas
+          clone.style.position = "absolute";
+          clone.style.left = "-9999px";
+          clone.style.width = "600px"; // محدود کردن عرض برای PDF
+          document.body.appendChild(clone);
+
+          try {
+            // 5. گرفتن تصویر با html2canvas
+            const canvas = await html2canvas(clone, {
+              scale: 1.5, // کیفیت مناسب و اندازه مناسب
+              useCORS: true,
+            });
+
+            // 6. تبدیل canvas به تصویر و افزودن به PDF
+            const imgData = canvas.toDataURL("image/png");
+            const pdfWidth = doc.internal.pageSize.getWidth() - 40; // حاشیه 20px
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            doc.addImage(imgData, "PNG", 20, 20, pdfWidth, pdfHeight);
+            doc.save("todolist.pdf"); // دانلود PDF
+          } catch (err) {
+            console.error("خطا در تولید PDF:", err);
+          }
+
+          // 7. حذف clone بعد از گرفتن PDF
+          document.body.removeChild(clone);
+        });
+      });
+    </script>
+
 </body>
 </html>

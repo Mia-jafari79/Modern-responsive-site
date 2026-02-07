@@ -1,13 +1,14 @@
 .breadcrumb-wrapper {
   max-width: 1200px;
-  margin: 16px auto;
-  padding: 0 24px;
+  margin: 16px auto 26px 0;  
+  padding-left: 175px;        
 }
 
 .breadcrumb {
   list-style: none;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 8px;
   font-size: 14px;
   color: #777;
