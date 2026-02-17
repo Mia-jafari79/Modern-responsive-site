@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود با توکن</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; background: #f5f5f5; }
+        .container { background: white; padding: 20px; max-width: 400px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin: 8px 0; border-radius: 4px; border: 1px solid #ccc; }
+        button { width: 100%; padding: 10px; margin: 8px 0; border: none; border-radius: 4px; background: #4CAF50; color: white; font-size: 16px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .token { background: #eee; padding: 10px; border-radius: 4px; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>فرم ورود</h2>
+    <input type="text" id="username" placeholder="نام کاربری">
+    <input type="password" id="password" placeholder="رمز عبور">
+    <button id="loginBtn">ورود</button>
+
+    <h3>توکن شما:</h3>
+    <div class="token" id="tokenDisplay">هیچ توکنی ذخیره نشده است</div>
+</div>
+
+<script src="app.js"></script>
+<script>
+    // تابع ساخت توکن تصادفی
+function generateToken(length = 16) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let token = "";
+    for (let i = 0; i < length; i++) {
+        token += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return token;
+}
+
+// گرفتن المنت‌ها
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const tokenDisplay = document.getElementById("tokenDisplay");
+
+// نمایش توکن ذخیره شده هنگام لود صفحه
+window.onload = function() {
+    const storedToken = localStorage.getItem("userToken");
+    if (storedToken) {
+        tokenDisplay.textContent = storedToken;
+    } else {
+        tokenDisplay.textContent = "هیچ توکنی ذخیره نشده است";
+    }
+};
+
+// عملکرد دکمه ورود
+loginBtn.addEventListener("click", function() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if(username && password) {
+        // ساخت توکن
+        const token = generateToken(32); // طول 32 حرفی
+        localStorage.setItem("userToken", token); // ذخیره در Local Storage
+        tokenDisplay.textContent = token;
+        alert("ورود موفق! توکن ذخیره شد.");
+    } else {
+        alert("لطفا نام کاربری و رمز عبور را وارد کنید.");
+    }
+});
+
+// عملکرد دکمه خروج
+logoutBtn.addEventListener("click", function() {
+    localStorage.removeItem("userToken"); // حذف توکن
+    tokenDisplay.textContent = "هیچ توکنی ذخیره نشده است";
+    alert("توکن پاک شد. شما خارج شدید.");
+});
+
+</script>
+</body>
+</html>
