@@ -74,6 +74,77 @@
         height: 14px;
     }
 
+    .notification {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 340px;
+    backdrop-filter: blur(14px);
+    background: rgba(30, 30, 40, 0.75);
+    color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.25),
+        0 0 0 1px rgba(255,255,255,0.05) inset;
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(.2,.8,.2,1);
+    z-index: 9999;
+    }
+
+    .notification.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    }
+
+    /* content */
+
+    .notification__content {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    }
+
+    .notification__message {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    }
+
+    .notification__close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    }
+
+    .notification__close:hover {
+    background: rgba(255,255,255,0.2);
+    transform: rotate(90deg);
+    }
+
+    /* Progress Bar */
+
+    .notification__progress {
+    height: 3px;
+    background: linear-gradient(90deg, #8A52C9, #e1c8f4);
+    transform-origin: left;
+    animation: progress 4s linear forwards;
+    }
+
+    @keyframes progress {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+    }
+
     </style>
 </head>
 
@@ -84,7 +155,6 @@
         <div class="header-container">
             <!-- left -->
             <div class="header-left">
-
             <div class="auth-buttons">
                 <button class="btn btn-auth">SIGN UP</button>
                 <button class="btn btn-auth">LOG IN</button>
@@ -302,67 +372,99 @@
         <p>© All rights reserved</p>
         </section>
     </footer>
-
+    <!------- notification ------->
+    <div class="notification" id="notification">
+    <div class="notification__content">
+        <span id="notification-message"></span>
+        <button class="notification__close" id="notification-close">×</button>
+    </div>
+    <div class="notification__progress"></div>
+    </div>
 
     <script src="js/header.js"></script>
     <script>
+    const notification = document.getElementById("notification");
+    const notificationMessage = document.getElementById("notification-message");
+    const notificationClose = document.getElementById("notification-close");
+
+    function showNotification(message, isSuccess = true) {
+        const progressBar = notification.querySelector(".notification__progress");
+
+        notificationMessage.textContent = message;
+
+        // تنظیم رنگ بر اساس نوع پیام
+        progressBar.style.background = isSuccess ? "#4caf50" : "#ff4d4d";
+
+        // ریست انیمیشن برای هر بار اجرا
+        progressBar.style.animation = "none";
+        void progressBar.offsetWidth;
+        progressBar.style.animation = "progress 4s linear forwards";
+
+        notification.classList.add("show");
+
+        setTimeout(() => {
+            hideNotification();
+        }, 4000);
+    }
+
+    function hideNotification() {
+        notification.classList.remove("show");
+    }
+
+    notificationClose.addEventListener("click", hideNotification);
+
     const form = document.getElementById("signup-form");
 
     form.addEventListener("submit", async function (e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const userName = document.getElementById("userName").value.trim();
-    const idnumber = document.getElementById("idnumber").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const confirmPassword = document.getElementById("confirmPassword").value.trim();
+        const userName = document.getElementById("userName").value.trim();
+        const idnumber = document.getElementById("idnumber").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-    // پاک کردن ارورها
-    const errors = document.querySelectorAll(".error");
-    errors.forEach(error => error.textContent = "");
+        // پاک کردن ارورها
+        const errors = document.querySelectorAll(".error");
+        errors.forEach(error => error.textContent = "");
 
-    let hasError = false;
+        let hasError = false;
 
-    // چک تطابق پسورد
-    if (password !== confirmPassword) {
-        document.querySelector("#confirmPassword + .error").textContent =
-        "Passwords do not match";
-        hasError = true;
-    }
-    console.log("1")
-
-    if (hasError) return;
-
-    const newUser = {
-        userName,
-        idnumber,
-        password
-    };
-
-    try {
-        console.log("1")
-        const response = await fetch("http://localhost:5002/users", {
-        
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newUser)
-        });
-        console.log(response)
-
-
-        if (!response.ok) {
-        throw new Error("Failed to submit form");
+        // چک تطابق پسورد
+        if (password !== confirmPassword) {
+            document.querySelector("#confirmPassword + .error").textContent =
+            "Passwords do not match";
+            hasError = true;
         }
 
-        alert("Signup successful ✅");
-        form.reset();
+        if (hasError) return;
 
-    } catch (error) {
-        alert("Something went wrong ❌");
-        console.error(error);
-        console.log("1")
-    }
+        const newUser = {
+            userName,
+            idnumber,
+            password
+        };
+
+        try {
+
+            const response = await fetch("http://localhost:5010/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "aplication/json"
+                },
+                body: JSON.stringify(newUser)
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to submit form");
+            }
+
+            showNotification("Signup successful ✅", true);
+            form.reset();
+
+        } catch (error) {
+            showNotification("Something went wrong ❌", false);
+            console.error(error);
+        }
     });
     </script>
 </body>
